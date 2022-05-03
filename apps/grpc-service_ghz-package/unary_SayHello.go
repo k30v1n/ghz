@@ -22,10 +22,17 @@ func main() {
         os.Exit(1)
     }
 
+	file, err := os.OpenFile("./unary_SayHello.html", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
+
+    if err != nil {
+        fmt.Println(err.Error())
+        os.Exit(1)
+    }
+
     printer := printer.ReportPrinter{
-        Out:    os.Stdout,
+        Out:    file,
         Report: report,
     }
 
-    printer.Print("pretty")
+    printer.Print("html")
 }

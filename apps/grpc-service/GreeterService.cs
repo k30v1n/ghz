@@ -12,7 +12,7 @@ public class GreeterService : Greeter.GreeterBase
 
     public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
     {
-        _logger.LogInformation("Unnary call");
+        _logger.LogInformation("Unnary - {name}", request.Name);
         return Task.FromResult(new HelloReply
         {
             Message = "Hello " + request.Name
@@ -26,7 +26,7 @@ public class GreeterService : Greeter.GreeterBase
     {
         try
         {
-            _logger.LogInformation("Connected");
+            _logger.LogInformation("Streaming Connected - {now} - {name}", DateTime.Now, request.Name);
 
             var response = new HelloReply
             {
@@ -37,9 +37,10 @@ public class GreeterService : Greeter.GreeterBase
 
             while (!context.CancellationToken.IsCancellationRequested)
             {
-                await Task.Delay(TimeSpan.FromSeconds(10), context.CancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(5), context.CancellationToken);
                 response.Message = $"I will keep talking to you {request.Name} - {DateTime.Now}";
 
+                _logger.LogInformation(" Sending >>> {now} to {name}", DateTime.Now, request.Name);
                 await responseStream.WriteAsync(response);
             }
         }
@@ -55,7 +56,7 @@ public class GreeterService : Greeter.GreeterBase
         }
         finally
         {
-            _logger.LogInformation("Disconnected.");
+            _logger.LogInformation("Streaming Disconnected - {now} - {name}", DateTime.Now, request.Name);
         }
     }
 }

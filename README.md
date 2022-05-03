@@ -9,10 +9,14 @@
 # Installation
 - CLI version
 - Golang package 1.11+ (https://jimkang.medium.com/install-go-on-mac-with-homebrew-5fa421fc55f5)    
-    - go env -w GO111MODULE=auto
-    - go mod init ghz
-    - go get
-    - go run unary_SayHello.go
+    - build and run go files
+        - go env -w GO111MODULE=auto
+        - go mod init ghz
+        - go get
+        - go run unary_SayHello.go
+    - Printer Reference https://github.com/bojand/ghz/blob/master/printer/printer.go
+    - Runner Reference https://github.com/bojand/ghz/blob/master/runner/run.go
+    - Options Reference https://github.com/bojand/ghz/blob/master/runner/options.go
 
 # Links
 - docs https://ghz.sh/
